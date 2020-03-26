@@ -1,0 +1,36 @@
+;=====================================================
+;     File Includes
+;=====================================================
+
+[section/base]
+include-file = $HOME/.config/polybar/master.conf
+include-file = $HOME/.config/polybar/modules.conf
+
+
+;=====================================================
+;     Openbox Bars
+;=====================================================
+
+[bar/openbox-bar]
+inherit = bar/master
+
+; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
+monitor =
+monitor-fallback =
+
+modules-left   = workspaces
+modules-center = clock
+modules-right  = battery alsa filesystem temperature memory coreuse
+
+
+;========= System Tray ==============================
+
+tray-detached = false
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 0
+tray-margin = 0
+;tray-maxsize = 20
+tray-scale = 1.0
+tray-position = right
+tray-background = ${colors.background}

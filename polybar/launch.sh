@@ -57,11 +57,13 @@ case $desktop in
     bspwm)
     if type "xrandr" > /dev/null; then
       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        # MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+        #MONITOR=$m polybar --reload mainbar-xmonad -c ~/.config/polybar/config &
         MONITOR=$m polybar --reload openbox-bar -q -c ~/.config/polybar/my-config &
+        #MONITOR=$m polybar --reload default -q -c ~/.config/polybar/lukesmithxyz &
       done
     else
-    polybar --reload mainbar-bspwm -c ~/.config/polybar/config &
+        polybar --reload openbox-bar -c ~/.config/polybar/config &
+        #polybar --reload openbox-bar -c ~/.config/polybar/my-config &
     fi
     # second polybar at bottom
     # if type "xrandr" > /dev/null; then

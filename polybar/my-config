@@ -14,23 +14,39 @@ include-file = $HOME/.config/polybar/modules.conf
 [bar/openbox-bar]
 inherit = bar/master
 
+; forces hide of bar when apps are in fullscreen mode
+wm-restack = bspwm
+
 ; Use $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor =
+monitor = ${env:MONITOR:}
 monitor-fallback =
 
-modules-left   = workspaces
+modules-left   = workspaces xwindow
 modules-center = clock
-modules-right  = battery alsa filesystem temperature memory coreuse
+modules-right  = battery alsa backlight arch-aur-updates wireless-network filesystem temperature memory coreuse
 
 
 ;========= System Tray ==============================
 
-tray-detached = false
-tray-offset-x = 0
-tray-offset-y = 0
-tray-padding = 0
-tray-margin = 0
-;tray-maxsize = 20
-tray-scale = 1.0
-tray-position = right
-tray-background = ${colors.background}
+;tray-detached = false
+;tray-offset-x = 0
+;tray-offset-y = 0
+;tray-padding = 0
+;tray-margin = 0
+;tray-scale = 1.0
+;tray-position = right
+
+
+[module/mutt-wizard]
+type = custom/script
+exec = mailbox
+interval = 5
+format-prefix = " "
+format-underline = ${colors.urgent}
+click-left = $TERMINAL -e neomutt
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:45:...%
+label-margin=1
+format-foreground = ${colors.blue}

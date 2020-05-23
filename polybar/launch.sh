@@ -58,8 +58,8 @@ case $desktop in
     if type "xrandr" > /dev/null; then
       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
         #MONITOR=$m polybar --reload mainbar-xmonad -c ~/.config/polybar/config &
-        MONITOR=$m polybar --reload openbox-bar -q -c ~/.config/polybar/my-config &
         #MONITOR=$m polybar --reload default -q -c ~/.config/polybar/lukesmithxyz &
+        MONITOR=$m polybar --reload openbox-bar -q -c ~/.config/polybar/my-config &
       done
     else
         polybar --reload openbox-bar -c ~/.config/polybar/config &

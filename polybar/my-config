@@ -23,18 +23,19 @@ monitor-fallback =
 
 modules-left   = workspaces xwindow
 modules-center = clock
-modules-right  = battery alsa backlight arch-aur-updates wireless-network filesystem temperature memory coreuse
+modules-right  = battery alsa backlight filesystem temperature memory coreuse
+; wireless-network arch-aur-updates
 
 
 ;========= System Tray ==============================
 
-;tray-detached = false
-;tray-offset-x = 0
-;tray-offset-y = 0
-;tray-padding = 0
-;tray-margin = 0
-;tray-scale = 1.0
-;tray-position = right
+tray-detached = false
+tray-offset-x = 0
+tray-offset-y = 0
+tray-padding = 0
+tray-margin = 0
+tray-scale = 1.0
+tray-position = right
 
 
 [module/mutt-wizard]

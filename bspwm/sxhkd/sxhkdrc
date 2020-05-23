@@ -1,18 +1,18 @@
-#################################################################
 # SUPER + ... KEYS
+#################################################################
 #################################################################
 
 #Neomutt
 super + n
     termite -e neomutt
+
+#Ranger
+super + shift + e
+    termite 'ranger' -e ranger
 
 #Thunar
 super + e
     thunar
-
-#Neomutt
-super + n
-    termite -e neomutt
 
 #Rofi
 super + r
@@ -27,7 +27,7 @@ super + o
 #    conky-toggle
 
 #Htop
-super + m
+super + u
     termite 'htop task manager' -e htop
 
 #Oblogout
@@ -38,9 +38,9 @@ super + minus
 super + r
     rofi-theme-selector
 
-#Pavucontrol
+#Spotify
 super + a
-    pavucontrol
+    spotify
 
 #Termite (default terminal emulator)
 super + Return
@@ -48,7 +48,7 @@ super + Return
 
 #default browser
 super + shift + Return
-    firefox-beta
+    chromium
 
 #Pamac-manager
 super + p
@@ -58,14 +58,23 @@ super + p
 super + Escape
     xkill
 
+#whatsapp
+super + w
+    whatsapp-nativefier
+
+#monitor config
+super + F4
+    termite -e '/home/marc/dual-monitor-switch.sh'
+
 
 #################################################################
 # SUPER + SHIFT KEYS
 #################################################################
 
 #dmenu
-super + shift + d
-	dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NDroid Sans Mono-12'
+super + d
+    /home/marc/.local/bin/dmenu-4.9/dmenu_run -i -h 20
+#   dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'Inconsolata-11'
 
 #reload sxhkd:
 super + shift + s
@@ -299,8 +308,8 @@ alt + ctrl + {Left,Down,Up,Right}
 
 # alt + shift + {Left,Down,Up,Right}
 	# bspc node @/ -p \~{west,south,north,east}
-# Set splitting ratio of windows
-alt + ctrl + {1-9}
+# Set splitting ratio of
+super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
 # Move current window to largest space or preselected area if there is one.
@@ -334,6 +343,10 @@ super + {_,shift + }{1-9,0}
 super + Tab
 	bspc desktop -f {next.occupied}
 super + shift + Tab
+	bspc desktop -f {prev.occupied}
+super + shift + l
+	bspc desktop -f {next.occupied}
+super + shift + h
 	bspc desktop -f {prev.occupied}
 
 # cycle windows
@@ -372,10 +385,21 @@ super + shift + space
 	bspc node @/ --rotate {90,-90}
 
 # Expand tiled space
-super + shift + {h,j,k,l}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
-super + shift + {Left,Down,Up,Right}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+# resize: expand a window by moving one of its side outward
+ctrl + shift + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+ctrl + shift + {Left,Down,Up,Right}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# resize: contract a window by moving one of its side inward
+ctrl + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+ctrl + alt + shift + {Left,Down,Up,Right}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+#super + shift + {Left,Down,Up,Right}
+#	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 #################################################################
 # CTRL + ALT KEYS
@@ -410,3 +434,20 @@ super + {1-9,0}
 
 
 #################################################################
+
+# swap the current node and the biggest node
+#super + g
+#	bspc node -s biggest
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+#super + y
+#	bspc node newest.marked.local -n newest.!automatic.local
+
+
+# quit/restart bspwm
+super + shift + {q,r}
+	bspc {quit,wm -r}

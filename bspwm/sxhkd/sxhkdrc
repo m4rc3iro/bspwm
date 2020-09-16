@@ -2,6 +2,14 @@
 #################################################################
 #################################################################
 
+#Eclipse
+super + u
+	eclipse
+
+#Intellij
+super + i
+    idea-ce
+
 #Neomutt
 super + n
     termite -e neomutt
@@ -48,7 +56,7 @@ super + Return
 
 #default browser
 super + shift + Return
-    chromium
+    firefox
 
 #Pamac-manager
 super + p
@@ -66,6 +74,10 @@ super + w
 super + F4
     termite -e '/home/marc/dual-monitor-switch.sh'
 
+#flameshot
+alt + shift + 4
+	flameshot gui
+
 
 #################################################################
 # SUPER + SHIFT KEYS
@@ -80,9 +92,13 @@ super + d
 super + shift + s
 	pkill -USR1 -x sxhkd
 
-#Move window to selected desktop
+#Move window to selected desktop and move focus
 super + shift + {1-9,0}
     id=$(bspc query -N -n); bspc node -d ^{1-9,10}; bspc node -f ${id}}
+
+#Move window to selected desktop (without moving focus)
+super + shift + alt + {1-9,0}
+    id=$(bspc query -N -n); bspc node -d ^{1-9,10};
 
 
 #################################################################
@@ -99,28 +115,28 @@ super + shift + {1-9,0}
 #################################################################
 
 #arcolinux-tweak-tool
-ctrl + alt + e
-    arcolinux-tweak-tool
+#ctrl + alt + e
+#    arcolinux-tweak-tool
 
 #Nitrogen
-ctrl + alt + i
-     nitrogen
+#ctrl + alt + i
+#     nitrogen
 
 #Xfce4-settings-manager
-ctrl + alt + m
-     xfce4-settings-manager
+#ctrl + alt + m
+#     xfce4-settings-manager
 
 #Pulse Audio Control
-ctrl + alt + u
-     pavucontrol
+#ctrl + alt + u
+#     pavucontrol
 
 #Rofi theme selector
-ctrl + alt + r
-  rofi-theme-selector
+#ctrl + alt + r
+#  rofi-theme-selector
 
 #Xfce4-appfinder
-ctrl + alt + a
-    xfce4-appfinder
+#ctrl + alt + a
+#    xfce4-appfinder
 
 
 #################################################################
@@ -149,15 +165,16 @@ alt + shift + 3
 #################################################################
 
 #bspwmrc > autostart
-F10
-    termite -e 'vim /home/marc/.config/bspwm/autostart.sh'
+#F10
+#    termite -e 'vim /home/marc/.config/bspwm/autostart.sh'
+
 #bspwmrc
-F11
-    termite -e 'vim /home/marc/.config/bspwm/bspwmrc'
+#F11
+#    termite -e 'vim /home/marc/.config/bspwm/bspwmrc'
 
 #bspwm > sxhkdrc
-F12
-    termite -e 'vim /home/marc/.config/bspwm/sxhkd/sxhkdrc'
+#F12
+#    termite -e 'vim /home/marc/.config/bspwm/sxhkd/sxhkdrc'
 
 
 #################################################################
@@ -250,8 +267,8 @@ super + t
 super + ctrl + t
 	bspcp tile
 # Force all windows of the desktop to float and arrange them
-super + ctrl + shift + t
-	bspcp float
+#super + ctrl + shift + t
+#	bspcp float
 
 # Toggle fullscreen
 super + shift + f
@@ -291,13 +308,13 @@ ctrl + space
 	auto-presel
 
 # Presel window for splitting in certain direction
-super + ctrl + {Left,Down,Up,Right}
+super + alt + {Left,Down,Up,Right}
 	bspc node -p \~{west,south,north,east}
-super + ctrl + {h,j,k,l}
+super + alt + {h,j,k,l}
 	bspc node -p \~{west,south,north,east}
 
-alt + ctrl + {Left,Down,Up,Right}
-	bspc node -p \~{west,south,north,east}
+#alt + ctrl + {Left,Down,Up,Right}
+#	bspc node -p \~{west,south,north,east}
 
 # Presel the desktop for splitting in certain direction
 # alt + shift + {a,s,w,d}
@@ -309,7 +326,7 @@ alt + ctrl + {Left,Down,Up,Right}
 # alt + shift + {Left,Down,Up,Right}
 	# bspc node @/ -p \~{west,south,north,east}
 # Set splitting ratio of
-super + ctrl + {1-9}
+super + alt + {1-9}
 	bspc node -o 0.{1-9}
 
 # Move current window to largest space or preselected area if there is one.
@@ -340,26 +357,16 @@ super + {_,shift + }{1-9,0}
 # Select previous / next desktop
 #super + {Left,Right}
 #	bspc desktop -f {prev.occupied,next.occupied}
-super + Tab
-	bspc desktop -f {next.occupied}
-super + shift + Tab
-	bspc desktop -f {prev.occupied}
-super + shift + l
-	bspc desktop -f {next.occupied}
-super + shift + h
-	bspc desktop -f {prev.occupied}
+super + {_,shift + }Tab
+	bspc desktop -f {next.occupied,prev.occupied}
+super + shift + {h,l}
+	bspc desktop -f {next.occupied,next.occupied}
 
-# cycle windows
-#alt + {_,shift + }Tab
-#    bspc node -f {next,prev}
-super + Right
-    bspc node -f {next}
-super + l
-    bspc node -f {next}
-super + Left
-    bspc node -f {prev}
-super + h
-    bspc node -f {prev}
+# cycle windows (only occupied/leaf ones)
+super + {Left,Right}
+    bspc node -f {prev.leaf,next.leaf}
+super + {h,l}
+    bspc node -f {prev.leaf,next.leaf}
 
 # Go to specific window
 #super + Tab
@@ -386,15 +393,15 @@ super + shift + space
 
 # Expand tiled space
 # resize: expand a window by moving one of its side outward
-ctrl + shift + {h,j,k,l}
+super + ctrl + {h,j,k,l}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-ctrl + shift + {Left,Down,Up,Right}
+super + ctrl + {Left,Down,Up,Right}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # resize: contract a window by moving one of its side inward
-ctrl + alt + shift + {h,j,k,l}
+super + ctrl + alt + {h,j,k,l}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-ctrl + alt + shift + {Left,Down,Up,Right}
+super + ctrl + alt + {Left,Down,Up,Right}
     bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
@@ -406,20 +413,19 @@ ctrl + alt + shift + {Left,Down,Up,Right}
 #################################################################
 
 # Focus next/previous window
-ctrl + alt + Left
-	bspc node --focus west
-
+#ctrl + alt + Left
+#	bspc node --focus west
 # Focus next/previous window
-ctrl + alt + Right
-	bspc node --focus east
+#ctrl + alt + Right
+#	bspc node --focus east
 
 # Focus Up window
-ctrl +alt + Up
-	bspc node --focus north
+#ctrl + alt + Up
+#	bspc node --focus north
 
 # Focus Down window
-ctrl + alt + Down
-	bspc node --focus south
+#ctrl + alt + Down
+#	bspc node --focus south
 
 #################################################################
 #################################################################

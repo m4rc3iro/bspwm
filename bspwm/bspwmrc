@@ -21,7 +21,7 @@ bspc config gapless_monocle      true
 #bspc config focus_by_distance    true
 bspc config focus_follows_pointer true
 #bspc config history_aware_focus  true
-bspc config pointer_modifier mod4
+bspc config pointer_modifier mod1
 bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
@@ -61,11 +61,11 @@ bspc rule -a Oblogout state=floating
 bspc rule -a TelegramDesktop rectangle=800x600+450+200 state=floating
 bspc rule -a Xfce4-terminal state=floating
 bspc rule -a Pamac-manager rectangle=800x600+400+150 state=floating
-bspc rule -a VirtualBox rectangle=800x600+400+150 state=floating
+bspc rule -a virtualbox rectangle=800x600+400+150 state=floating
 bspc rule -a Shortwave rectangle=800x600+400+150 state=floating
 bspc rule -a whatsapp-nativefier state=floating
 #bspc rule -a Nitrogen state=floating
-#bspc rule -a Gpick state=floating sticky=on
+#bspc rule -a state=floating sticky=on
 #bspc rule -a Peek state=floating
 #bspc rule -a Pavucontrol state=floating sticky=on
 #bspc rule -a rofi state=floating sticky=on
